@@ -1,4 +1,5 @@
 test: testString
+	./testString
 
 testString: jasonString
 	g++ -std=c++17 -Wall -Wpedantic jasonString.o testString.cpp -o testString
