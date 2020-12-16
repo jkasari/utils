@@ -15,6 +15,10 @@ int main() {
       jasonString jstr("ABC");
       assert_eq(3, jstr.length());
     }
+    unit_test("\"ABCD\" has a |length| of (4)") {
+      jasonString jstr("ABCD");
+      assert_eq(4, jstr.length());
+    }
   }
 
 
