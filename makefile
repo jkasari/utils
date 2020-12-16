@@ -1,11 +1,13 @@
-main:
-	g++ -std=c++17 main.cpp -o run
+test: testString
+	./testString
 
-test:
-	g++ -std=c++17 test.cpp -o test
-	./test
+testString: jasonString
+	g++ -std=c++17 -Wall -Wpedantic jasonString.o testString.cpp -o testString
+
+jasonString:
+	g++ -std=c++17 -Wall -Wpedantic -c jasonString.cpp
 
 clean:
-	rm -rf run test
+	rm -rf testString *.o
 	
-.PHONY: main test clean
+.PHONY: test testString jasonString clean
