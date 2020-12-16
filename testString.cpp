@@ -6,9 +6,10 @@ using namespace std;
 using namespace nuttiest;
 
 int main() {
-  section("test") {
-    unit_test("testCase") {
-      assert_eq(true, false);
+  section("stringLength") {
+    unit_test("empty string has a length of (0)") {
+      jasonString jstr;
+      assert_eq(0, jstr.length());
     }
   }
 
