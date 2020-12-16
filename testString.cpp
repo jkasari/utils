@@ -1,5 +1,6 @@
 #include <iostream>
 #include "nuttiest/nuttiest.hpp"
+#include "jasonString.h"
 
 using namespace std;
 using namespace nuttiest;
