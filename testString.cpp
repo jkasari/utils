@@ -20,6 +20,13 @@ int main() {
       assert_eq(4, jstr.length());
     }
   }
+  section("push_back") {
+    unit_test("\"AB\" push_back \"C\" gives \"ABC\"") {
+      jasonString jstr("AB");
+      jstr.push_back('C');
+      assert_eq("ABC", jstr.inner());
+    }
+  }
 
 
   summary();
