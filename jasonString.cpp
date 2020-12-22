@@ -50,8 +50,8 @@ std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
  * finds a spot on the heap with enough room for the old |jasonString| plus one additional char
  */
 void jasonString::push_back(const char c) {
-    data = new char[4];
-    data[0] = 'A';
-    data[1] = 'B';
-    data[2] = 'C';
+    const char* oldData = data;
+    data = new char[strlen(data) + 1];
+    strcpy(data, oldData);
+    data[strlen(data)] = c;
 }

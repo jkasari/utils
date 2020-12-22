@@ -26,6 +26,11 @@ int main() {
       jstr.push_back('C');
       assert_eq("ABC", jstr.inner());
     }
+    unit_test("\"AB\" push_back \'B\' gives you \"ABB\"") {
+      jasonString jstr("AB");
+      jstr.push_back('B');
+      assert_eq("ABB", jstr.inner());
+    }
   }
 
 
