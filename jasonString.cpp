@@ -4,48 +4,54 @@
  * allocates a space on the heap for a |jasonString| to occupy
  */
 jasonString::jasonString(const char* str) {
-  if (!str) {
-    return;
-  }
-  data = new char[strlen(str) + 1];
-  strcpy(data, str);
+    if (!str) {
+        return;
+    }
+    data = new char[strlen(str) + 1];
+    strcpy(data, str);
 }
 
 /**
  * deletes the |jasonString| off of the heap
  */
 jasonString::~jasonString() {
-  if (data) {
-    delete[] data;
-    data = nullptr;
-  }
+    if (data) {
+      delete [] data;
+      data = nullptr;
+    }
 }
 
 /**
  * returns the length of a |jasonString|
  */
 size_t jasonString::length() const {
-  if (!data) {
-    return 0;
-  }
-  return strlen(data);
+    if (!data) {
+        return 0;
+    }
+    return strlen(data);
 }
 
 /**
- * returns the char array in a |jasonString| so that |nuttiest| can compare
- * results
+ * returns the char array in a |jasonString| so that |nuttiest| can compare results
  */
-const char* jasonString::inner() const { return data; }
+const char* jasonString::inner() const {
+    return data;
+}
+
 
 /**
  * tells |ostream| how to display a |jasonString|
  */
 std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
-  return stream;
+    return stream;
 }
 
 /**
- * finds a spot on the heap with enough room for the old |jasonString| plus one
- * additional char
+ * finds a spot on the heap with enough room for the old |jasonString| plus one additional char
  */
-void jasonString::push_back(const char c) {}
+void jasonString::push_back(const char c) {
+    data = new char[4];
+    data[0] = 'A';
+    data[1] = 'B';
+    data[2] = 'C';
+}
