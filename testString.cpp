@@ -21,15 +21,27 @@ int main() {
     }
   }
   section("push_back") {
+    unit_test("\"\" push_back \'A\' gives \"A\"") {
+      jasonString jstr("");
+      jstr.push_back('A');
+      mem_eq("A", jstr.inner(), strlen("A"));
+    }
     unit_test("\"AB\" push_back \"C\" gives \"ABC\"") {
       jasonString jstr("AB");
       jstr.push_back('C');
-      assert_eq("ABC", jstr.inner());
+      mem_eq("ABC", jstr.inner(), strlen("ABC"));
     }
     unit_test("\"AB\" push_back \'B\' gives you \"ABB\"") {
       jasonString jstr("AB");
       jstr.push_back('B');
-      assert_eq("ABB", jstr.inner());
+      mem_eq("ABB", jstr.inner(), strlen("ABB"));
+    }
+  }
+  section("push_back") {
+    unit_test("\"AB\" push_back \"AB\" returns \"ABAB\"") {
+      jasonString jstr("AB");
+      jstr.push_back("AB");
+      mem_eq("ABAB", jstr.inner(), strlen("ABAB"));
     }
   }
 

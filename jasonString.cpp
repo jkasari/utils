@@ -50,13 +50,14 @@ std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
  */
 void jasonString::push_back(const char c) {
   const char* oldData = data;
-  data = new char[strlen(data) + 1];
-  strcpy(data, oldData);
-  data[strlen(data)] = c;
+  data = new char[length() + 2];
   if (oldData) {
+    strcpy(data, oldData);
     delete[] oldData;
     oldData = nullptr;
   }
+  data[length()] = c;
+  data[length() + 1] = '\0';
 }
 
 /**
