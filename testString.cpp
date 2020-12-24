@@ -20,6 +20,40 @@ int main() {
       assert_eq(4, jstr.length());
     }
   }
+  section("push_back") {
+    unit_test("\"\" push_back \'A\' gives \"A\"") {
+      jasonString jstr;
+      jstr.push_back('A');
+      mem_eq("A", jstr.inner(), strlen("A"));
+    }
+    unit_test("\"AB\" push_back \"C\" gives \"ABC\"") {
+      jasonString jstr("AB");
+      jstr.push_back('C');
+      mem_eq("ABC", jstr.inner(), strlen("ABC"));
+    }
+    unit_test("\"AB\" push_back \'B\' gives you \"ABB\"") {
+      jasonString jstr("AB");
+      jstr.push_back('B');
+      mem_eq("ABB", jstr.inner(), strlen("ABB"));
+    }
+  }
+  section("push_back") {
+    unit_test("\"\" push_back \"AB\" returns \"AB\"") {
+      jasonString jstr;
+      jstr.push_back("AB");
+      mem_eq("AB", jstr.inner(), strlen("AB"));
+    }
+    unit_test("\"AB\" push_back \"AB\" returns \"ABAB\"") {
+      jasonString jstr("AB");
+      jstr.push_back("AB");
+      mem_eq("ABAB", jstr.inner(), strlen("ABAB"));
+    }
+    unit_test("\"AB\" push_back \"\" returns \"AB\"") {
+      jasonString jstr("AB");
+      jstr.push_back("");
+      mem_eq("AB", jstr.inner(), strlen("AB"));
+    }
+  }
 
 
   summary();
