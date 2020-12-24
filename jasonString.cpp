@@ -7,7 +7,8 @@ jasonString::jasonString(const char* str) {
   if (!str) {
     return;
   }
-  data = new char[strlen(str) + 1];
+  slen = strlen(str);
+  data = new char[slen + 1];
   strcpy(data, str);
 }
 
@@ -25,10 +26,7 @@ jasonString::~jasonString() {
  * returns the length of a |jasonString|
  */
 size_t jasonString::length() const {
-  if (!data) {
-    return 0;
-  }
-  return strlen(data);
+  return slen;
 }
 
 /**
@@ -50,14 +48,15 @@ std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
  */
 void jasonString::push_back(const char c) {
   const char* oldData = data;
-  data = new char[length() + 2];
+  data = new char[slen + 2];
   if (oldData) {
     strcpy(data, oldData);
     delete[] oldData;
     oldData = nullptr;
   }
-  data[length()] = c;
-  data[length() + 1] = '\0';
+  data[slen] = c;
+  data[slen + 1] = '\0';
+  slen += 1;
 }
 
 /**

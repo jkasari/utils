@@ -15,6 +15,7 @@ class jasonString {
     const char* inner() const;
  private:
     char* data = nullptr;
+    size_t slen = 0;
 
 };
 
