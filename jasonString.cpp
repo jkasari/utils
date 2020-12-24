@@ -64,4 +64,11 @@ void jasonString::push_back(const char c) {
  * finds a spot on the heap with enough room for an old |jasonString| plus a
  * char array
  */
-void jasonString::push_back(const char* str) {}
+void jasonString::push_back(const char* str) {
+  if (!str) {
+    return;
+  }
+  for(int i = 0; i < strlen(str); ++i) {
+    push_back(str[i]);
+  }
+}

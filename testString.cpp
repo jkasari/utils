@@ -22,7 +22,7 @@ int main() {
   }
   section("push_back") {
     unit_test("\"\" push_back \'A\' gives \"A\"") {
-      jasonString jstr("");
+      jasonString jstr;
       jstr.push_back('A');
       mem_eq("A", jstr.inner(), strlen("A"));
     }
@@ -38,10 +38,20 @@ int main() {
     }
   }
   section("push_back") {
+    unit_test("\"\" push_back \"AB\" returns \"AB\"") {
+      jasonString jstr;
+      jstr.push_back("AB");
+      mem_eq("AB", jstr.inner(), strlen("AB"));
+    }
     unit_test("\"AB\" push_back \"AB\" returns \"ABAB\"") {
       jasonString jstr("AB");
       jstr.push_back("AB");
       mem_eq("ABAB", jstr.inner(), strlen("ABAB"));
+    }
+    unit_test("\"AB\" push_back \"\" returns \"AB\"") {
+      jasonString jstr("AB");
+      jstr.push_back("");
+      mem_eq("AB", jstr.inner(), strlen("AB"));
     }
   }
 
