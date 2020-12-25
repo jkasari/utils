@@ -63,6 +63,16 @@ int main() {
       mem_eq("AB", jstr.inner(), strlen("AB"));
     }
   }
+  section("pop_back") {
+    unit_test("\"ABAB\" pop_back returns \'B\' and \"ABA\"") {
+      jasonString jstr("ABAB");
+      assert_eq('B', jstr.pop_back());
+    }
+    unit_test("\"\" pop_back returns \'\0\' and \"\"") {
+      jasonString jstr("");
+      assert_eq('\0', jstr.pop_back());
+    }
+  }
 
 
   summary();

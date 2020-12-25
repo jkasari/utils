@@ -85,3 +85,13 @@ void jasonString::push_back(const char* str) {
 // The string continues on without the previous ending char.
 // Example
 // "ABAB" pop_back gives you 'B'. while the string changes to "ABA"
+
+char jasonString::pop_back() {
+  if(!data) {
+    return '\0';
+  }
+  char poppedBackChar = data[slen - 1];
+  data[slen - 1] = '\0';
+  return poppedBackChar;
+
+}

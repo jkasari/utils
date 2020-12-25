@@ -12,6 +12,7 @@ class jasonString {
     size_t length() const;
     void push_back(const char);
     void push_back(const char*);
+    char pop_back();
     const char* inner() const;
  private:
     char* data = nullptr;
