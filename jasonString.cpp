@@ -67,7 +67,21 @@ void jasonString::push_back(const char* str) {
   if (!str) {
     return;
   }
+  const char* oldData = data;
+  data = new char[slen + (strlen(str)) + 1];
+  if (oldData) {
+    strcpy(data, oldData);
+    delete [] oldData;
+    oldData = nullptr;
+  }
   for(int i = 0; i < strlen(str); ++i) {
-    push_back(str[i]);
+    data[slen] = str[i];
+    slen++;
   }
 }
+
+// To Do
+// Add pop_back method, takes the char at the end of the jasonString and returns it.
+// The string continues on without the previous ending char.
+// Example
+// "ABAB" pop_back gives you 'B'. while the string changes to "ABA"
