@@ -25,9 +25,7 @@ jasonString::~jasonString() {
 /**
  * returns the length of a |jasonString|
  */
-size_t jasonString::length() const {
-  return slen;
-}
+size_t jasonString::length() const { return slen; }
 
 /**
  * returns the char array in a |jasonString| so that |nuttiest| can compare
@@ -39,7 +37,18 @@ const char* jasonString::inner() const { return data; }
  * tells |ostream| how to display a |jasonString|
  */
 std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
-  return stream;
+  return stream << jstr.inner();
+}
+
+bool operator==(const char* str, const jasonString& jstr) {
+  if (!str || !jstr.inner()) {
+    return false;
+  }
+  return !strcmp(str, jstr.inner());
+}
+
+bool operator==(const jasonString& jstr, const char* str) {
+  return str == jstr;
 }
 
 /**
@@ -71,27 +80,51 @@ void jasonString::push_back(const char* str) {
   data = new char[slen + (strlen(str)) + 1];
   if (oldData) {
     strcpy(data, oldData);
-    delete [] oldData;
+    delete[] oldData;
     oldData = nullptr;
   }
-  for(int i = 0; i < strlen(str); ++i) {
+  for (int i = 0; i < strlen(str); ++i) {
     data[slen] = str[i];
     slen++;
   }
+  data[slen] = '\0';
 }
 
 // To Do
-// Add pop_back method, takes the char at the end of the jasonString and returns it.
-// The string continues on without the previous ending char.
-// Example
-// "ABAB" pop_back gives you 'B'. while the string changes to "ABA"
+// Add pop_back method, takes the char at the end of the jasonString and returns
+// it. The string continues on without the previous ending char. Example "ABAB"
+// pop_back gives you 'B'. while the string changes to "ABA"
 
-char jasonString::pop_back() {
-  if(!data) {
+const char jasonString::pop_back() {
+  if (slen == 0) {
     return '\0';
   }
-  char poppedBackChar = data[slen - 1];
+  const char poppedBackChar = data[slen - 1];
   data[slen - 1] = '\0';
+  --slen;
   return poppedBackChar;
+}
 
+/**
+ * removes the first instance of |toRemove| out of a jasonString
+ * returns true if |toRemove| was found and removed otherwise false
+ */
+bool jasonString::remove_first(const char toRemove) {
+  if (!data) {
+    return false;
+  }
+  bool found = false;
+  for (int i = 0; i < slen; ++i) {
+    if (toRemove == data[i]) {
+      found = true;
+    }
+    if (found) {
+      data[i] = data[i + 1];
+    }
+  }
+  if (found) {
+    --slen;
+    return true;
+  }
+  return false;
 }
