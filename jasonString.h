@@ -3,8 +3,8 @@
 #include <iostream>
 
 class jasonString {
-
-  friend std::ostream& operator<<(std::ostream& stream, const jasonString& jstr);
+  friend std::ostream& operator<<(std::ostream& stream,
+                                  const jasonString& jstr);
   friend bool operator==(const char* str, const jasonString& jstr);
   friend bool operator==(const jasonString& jstr, const char* str);
 
@@ -20,9 +20,9 @@ class jasonString {
   bool remove_all(const char);
 
  private:
+  void allocate(size_t);
   char* data = nullptr;
   size_t slen = 0;
 };
-
 
 #endif  // JASON_STRING_H

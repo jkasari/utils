@@ -8,7 +8,7 @@ jasonString::jasonString(const char* str) {
     return;
   }
   slen = strlen(str);
-  data = new char[slen + 1];
+  allocate(slen);
   strcpy(data, str);
 }
 
@@ -51,7 +51,7 @@ bool operator==(const jasonString& jstr, const char* str) {
  */
 void jasonString::push_back(const char c) {
   const char* oldData = data;
-  data = new char[slen + 2];
+  allocate(slen + 1);
   if (oldData) {
     strcpy(data, oldData);
     delete[] oldData;
@@ -70,18 +70,16 @@ void jasonString::push_back(const char* str) {
   if (!str) {
     return;
   }
+  size_t strLength = strlen(str);
   const char* oldData = data;
-  data = new char[slen + (strlen(str)) + 1];
+  allocate(slen + strLength);
   if (oldData) {
     strcpy(data, oldData);
     delete[] oldData;
     oldData = nullptr;
   }
-  for (int i = 0; i < strlen(str); ++i) {
-    data[slen] = str[i];
-    slen++;
-  }
-  data[slen] = '\0';
+  strcat(data, str);
+  slen += strLength;
 }
 
 // To Do
@@ -128,10 +126,15 @@ bool jasonString::remove_first(const char toRemove) {
  * returns true if |toRemove| was found and removed outherwise false
  */
 bool jasonString::remove_all(const char toRemove) {
-  if(!remove_first(toRemove)) {
+  if (!remove_first(toRemove)) {
     return false;
   }
-  while(remove_first(toRemove)) {}
+  while (remove_first(toRemove)) {
+  }
   return true;
 }
 
+void jasonString::allocate(size_t length) {
+  data = new char[length + 1];
+  data[0] = '\0';
+}
