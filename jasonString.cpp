@@ -127,4 +127,11 @@ bool jasonString::remove_first(const char toRemove) {
  * removes all instances of |toRemove| out of a jasonString
  * returns true if |toRemove| was found and removed outherwise false
  */
+bool jasonString::remove_all(const char toRemove) {
+  if(!remove_first(toRemove)) {
+    return false;
+  }
+  while(remove_first(toRemove)) {}
+  return true;
+}
 

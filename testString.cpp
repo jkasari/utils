@@ -115,18 +115,18 @@ int main() {
       assert_eq(2, jstr.length());
     }
   }
-  //section("remove_all") {
-  //  unit_test("\"ABABA\" remove_all(A)") {
-  //    jasonString jstr("ABABA");
-  //    assert_eq(true, jstr.remove_all('A'));
-  //    assert_eq("BB", jstr);
-  //    assert_eq(2, jstr.length());
+  section("remove_all") {
+    unit_test("\"ABABA\" remove_all(A)") {
+      jasonString jstr("ABABA");
+      assert_eq(true, jstr.remove_all('A'));
+      assert_eq("BB", jstr);
+      assert_eq(2, jstr.length());
 
-  //    assert_eq(false, jstr.remove_all('A'));
-  //    assert_eq("BB", jstr);
-  //    assert_eq(2, jstr.length());
+      assert_eq(false, jstr.remove_all('A'));
+      assert_eq("BB", jstr);
+      assert_eq(2, jstr.length());
 
-  //  }
-  //}
+    }
+  }
   summary();
 }
