@@ -7,7 +7,8 @@ jasonString::jasonString(const char* str) {
   if (!str) {
     return;
   }
-  data = new char[strlen(str) + 1];
+  slen = strlen(str);
+  allocate(slen);
   strcpy(data, str);
 }
 
@@ -24,24 +25,24 @@ jasonString::~jasonString() {
 /**
  * returns the length of a |jasonString|
  */
-size_t jasonString::length() const {
-  if (!data) {
-    return 0;
-  }
-  return strlen(data);
-}
-
-/**
- * returns the char array in a |jasonString| so that |nuttiest| can compare
- * results
- */
-const char* jasonString::inner() const { return data; }
+size_t jasonString::length() const { return slen; }
 
 /**
  * tells |ostream| how to display a |jasonString|
  */
 std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
-  return stream;
+  return stream << jstr.data;
+}
+
+bool operator==(const char* str, const jasonString& jstr) {
+  if (!str || !jstr.data) {
+    return false;
+  }
+  return !strcmp(str, jstr.data);
+}
+
+bool operator==(const jasonString& jstr, const char* str) {
+  return str == jstr;
 }
 
 /**
@@ -50,14 +51,15 @@ std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
  */
 void jasonString::push_back(const char c) {
   const char* oldData = data;
-  data = new char[length() + 2];
+  allocate(slen + 1);
   if (oldData) {
     strcpy(data, oldData);
     delete[] oldData;
     oldData = nullptr;
   }
-  data[length()] = c;
-  data[length() + 1] = '\0';
+  data[slen] = c;
+  data[slen + 1] = '\0';
+  slen += 1;
 }
 
 /**
@@ -68,7 +70,71 @@ void jasonString::push_back(const char* str) {
   if (!str) {
     return;
   }
-  for(int i = 0; i < strlen(str); ++i) {
-    push_back(str[i]);
+  size_t strLength = strlen(str);
+  const char* oldData = data;
+  allocate(slen + strLength);
+  if (oldData) {
+    strcpy(data, oldData);
+    delete[] oldData;
+    oldData = nullptr;
   }
+  strcat(data, str);
+  slen += strLength;
+}
+
+// To Do
+// Add pop_back method, takes the char at the end of the jasonString and returns
+// it. The string continues on without the previous ending char. Example "ABAB"
+// pop_back gives you 'B'. while the string changes to "ABA"
+
+const char jasonString::pop_back() {
+  if (slen == 0) {
+    return '\0';
+  }
+  const char poppedBackChar = data[slen - 1];
+  data[slen - 1] = '\0';
+  --slen;
+  return poppedBackChar;
+}
+
+/**
+ * removes the first instance of |toRemove| out of a jasonString
+ * returns true if |toRemove| was found and removed otherwise false
+ */
+bool jasonString::remove_first(const char toRemove) {
+  if (!data) {
+    return false;
+  }
+  bool found = false;
+  for (int i = 0; i < slen; ++i) {
+    if (toRemove == data[i]) {
+      found = true;
+    }
+    if (found) {
+      data[i] = data[i + 1];
+    }
+  }
+  if (found) {
+    --slen;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * removes all instances of |toRemove| out of a jasonString
+ * returns true if |toRemove| was found and removed outherwise false
+ */
+bool jasonString::remove_all(const char toRemove) {
+  if (!remove_first(toRemove)) {
+    return false;
+  }
+  while (remove_first(toRemove)) {
+  }
+  return true;
+}
+
+void jasonString::allocate(size_t length) {
+  data = new char[length + 1];
+  data[0] = '\0';
 }
