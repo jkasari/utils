@@ -10,7 +10,6 @@ int main() {
     unit_test("empty string has a |length| of (0)") {
       jasonString jstr;
       assert_eq(0, jstr.length());
-      assert_eq(nullptr, jstr.inner());
     }
     unit_test("\"ABC\" has a |length| of (3)") {
       jasonString jstr("ABC");
@@ -116,6 +115,18 @@ int main() {
       assert_eq(2, jstr.length());
     }
   }
+  //section("remove_all") {
+  //  unit_test("\"ABABA\" remove_all(A)") {
+  //    jasonString jstr("ABABA");
+  //    assert_eq(true, jstr.remove_all('A'));
+  //    assert_eq("BB", jstr);
+  //    assert_eq(2, jstr.length());
 
+  //    assert_eq(false, jstr.remove_all('A'));
+  //    assert_eq("BB", jstr);
+  //    assert_eq(2, jstr.length());
+
+  //  }
+  //}
   summary();
 }

@@ -28,23 +28,17 @@ jasonString::~jasonString() {
 size_t jasonString::length() const { return slen; }
 
 /**
- * returns the char array in a |jasonString| so that |nuttiest| can compare
- * results
- */
-const char* jasonString::inner() const { return data; }
-
-/**
  * tells |ostream| how to display a |jasonString|
  */
 std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
-  return stream << jstr.inner();
+  return stream << jstr.data;
 }
 
 bool operator==(const char* str, const jasonString& jstr) {
-  if (!str || !jstr.inner()) {
+  if (!str || !jstr.data) {
     return false;
   }
-  return !strcmp(str, jstr.inner());
+  return !strcmp(str, jstr.data);
 }
 
 bool operator==(const jasonString& jstr, const char* str) {
@@ -128,3 +122,9 @@ bool jasonString::remove_first(const char toRemove) {
   }
   return false;
 }
+
+/**
+ * removes all instances of |toRemove| out of a jasonString
+ * returns true if |toRemove| was found and removed outherwise false
+ */
+
