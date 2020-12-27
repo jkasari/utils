@@ -82,11 +82,10 @@ void jasonString::push_back(const char* str) {
   slen += strLength;
 }
 
-// To Do
-// Add pop_back method, takes the char at the end of the jasonString and returns
-// it. The string continues on without the previous ending char. Example "ABAB"
-// pop_back gives you 'B'. while the string changes to "ABA"
-
+/**
+ * TODO(jkasari)
+ * write a function discription
+ */
 const char jasonString::pop_back() {
   if (slen == 0) {
     return '\0';
@@ -98,25 +97,46 @@ const char jasonString::pop_back() {
 }
 
 /**
+ * helper function that shifts all the characters in a jasonString over one from
+ * a specific index
+ */
+void jasonString::removeAt(size_t index) {
+  if (!data) {
+    return;
+  }
+  if (index >= slen) {
+    return;
+  }
+  for (; index < slen; ++index) {
+    data[index] = data[index + 1];
+  }
+  --slen;
+}
+
+/**
  * removes the first instance of |toRemove| out of a jasonString
  * returns true if |toRemove| was found and removed otherwise false
  */
 bool jasonString::remove_first(const char toRemove) {
-  if (!data) {
-    return false;
-  }
-  bool found = false;
   for (int i = 0; i < slen; ++i) {
     if (toRemove == data[i]) {
-      found = true;
-    }
-    if (found) {
-      data[i] = data[i + 1];
+      removeAt(i);
+      return true;
     }
   }
-  if (found) {
-    --slen;
-    return true;
+  return false;
+}
+
+/**
+ * TODO(jkasari)
+ * write function discription
+ */
+bool jasonString::remove_last(const char toRemove) {
+  for (int i = (slen - 1); i >= 0; --i) {
+    if (toRemove == data[i]) {
+      removeAt(i);
+      return true;
+    }
   }
   return false;
 }
@@ -126,15 +146,24 @@ bool jasonString::remove_first(const char toRemove) {
  * returns true if |toRemove| was found and removed outherwise false
  */
 bool jasonString::remove_all(const char toRemove) {
-  if (!remove_first(toRemove)) {
+  if (!remove_last(toRemove)) {
     return false;
   }
-  while (remove_first(toRemove)) {
-  }
+  while (remove_last(toRemove)) {}
   return true;
 }
 
+/**
+ * allocates a new spot on the heap for a jasonString
+ */
 void jasonString::allocate(size_t length) {
   data = new char[length + 1];
   data[0] = '\0';
 }
+
+
+
+/**
+ * add a bool string search function |contains|
+ * add |reverse_function|
+ */

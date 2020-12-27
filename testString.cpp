@@ -75,7 +75,7 @@ int main() {
       assert_eq(0, jstr.length());
     }
   }
-  section("pop_back") {
+  section("remove_first") {
     unit_test("\"ABC\" remove_first('B') returns \'B\' and \"AC\"") {
       jasonString jstr("ABC");
       assert_eq(true, jstr.remove_first('B'));
@@ -123,6 +123,26 @@ int main() {
       assert_eq(2, jstr.length());
 
       assert_eq(false, jstr.remove_all('A'));
+      assert_eq("BB", jstr);
+      assert_eq(2, jstr.length());
+    }
+  }
+  section("remove_last") {
+    unit_test("\"ABABA\" remove_last(A)") {
+      jasonString jstr("ABABA");
+      assert_eq(true, jstr.remove_last('A'));
+      assert_eq("ABAB", jstr);
+      assert_eq(4, jstr.length());
+
+      assert_eq(true, jstr.remove_last('A'));
+      assert_eq("ABB", jstr);
+      assert_eq(3, jstr.length());
+
+      assert_eq(true, jstr.remove_last('A'));
+      assert_eq("BB", jstr);
+      assert_eq(2, jstr.length());
+
+      assert_eq(false, jstr.remove_last('A'));
       assert_eq("BB", jstr);
       assert_eq(2, jstr.length());
     }
