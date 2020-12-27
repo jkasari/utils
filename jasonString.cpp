@@ -82,11 +82,10 @@ void jasonString::push_back(const char* str) {
   slen += strLength;
 }
 
-// To Do
-// Add pop_back method, takes the char at the end of the jasonString and returns
-// it. The string continues on without the previous ending char. Example "ABAB"
-// pop_back gives you 'B'. while the string changes to "ABA"
-
+/**
+ * TODO(jkasari)
+ * write a function discription
+ */
 const char jasonString::pop_back() {
   if (slen == 0) {
     return '\0';
@@ -128,6 +127,10 @@ bool jasonString::remove_first(const char toRemove) {
   return false;
 }
 
+/**
+ * TODO(jkasari)
+ * write function discription
+ */
 bool jasonString::remove_last(const char toRemove) {
   for (int i = (slen - 1); i >= 0; --i) {
     if (toRemove == data[i]) {
@@ -150,6 +153,9 @@ bool jasonString::remove_all(const char toRemove) {
   return true;
 }
 
+/**
+ * allocates a new spot on the heap for a jasonString
+ */
 void jasonString::allocate(size_t length) {
   data = new char[length + 1];
   data[0] = '\0';
@@ -158,8 +164,6 @@ void jasonString::allocate(size_t length) {
 
 
 /**
- * add |remove_last| this removes the last character in a jasonString
- * optimize |remove_all| to use |remove_last|
  * add a bool string search function |contains|
  * add |reverse_function|
  */
