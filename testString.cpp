@@ -75,7 +75,7 @@ int main() {
       assert_eq(0, jstr.length());
     }
   }
-  section("pop_back") {
+  section("remove_first") {
     unit_test("\"ABC\" remove_first('B') returns \'B\' and \"AC\"") {
       jasonString jstr("ABC");
       assert_eq(true, jstr.remove_first('B'));

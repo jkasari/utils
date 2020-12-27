@@ -20,7 +20,8 @@ class jasonString {
   bool remove_all(const char);
 
  private:
-  void allocate(size_t);
+  void allocate(size_t length);
+  void removeAt(size_t index);
   char* data = nullptr;
   size_t slen = 0;
 };

@@ -97,6 +97,18 @@ const char jasonString::pop_back() {
   return poppedBackChar;
 }
 
+void jasonString::removeAt(size_t index) {
+  if(!data) {
+    return;
+  }
+  if(index >= slen) {
+    return;
+  }
+  for(;index < slen; ++index) {
+    data[index] = data[index + 1];
+  }
+}
+
 /**
  * removes the first instance of |toRemove| out of a jasonString
  * returns true if |toRemove| was found and removed otherwise false
@@ -106,15 +118,18 @@ bool jasonString::remove_first(const char toRemove) {
     return false;
   }
   bool found = false;
+  uint32_t index = 0;
   for (int i = 0; i < slen; ++i) {
     if (toRemove == data[i]) {
       found = true;
     }
     if (found) {
-      data[i] = data[i + 1];
+      index = i;
+      break;
     }
   }
   if (found) {
+    removeAt(index);
     --slen;
     return true;
   }
@@ -138,3 +153,11 @@ void jasonString::allocate(size_t length) {
   data = new char[length + 1];
   data[0] = '\0';
 }
+
+
+/**
+ * add |remove_last| this removes the last character in a jasonString
+ * optimize |remove_all| to use |remove_last|
+ * add a bool string search function |contains|
+ * add |reverse_function|
+ */
