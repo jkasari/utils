@@ -97,16 +97,21 @@ const char jasonString::pop_back() {
   return poppedBackChar;
 }
 
+/**
+ * helper function that shifts all the characters in a jasonString over one from
+ * a specific index
+ */
 void jasonString::removeAt(size_t index) {
-  if(!data) {
+  if (!data) {
     return;
   }
-  if(index >= slen) {
+  if (index >= slen) {
     return;
   }
-  for(;index < slen; ++index) {
+  for (; index < slen; ++index) {
     data[index] = data[index + 1];
   }
+  --slen;
 }
 
 /**
@@ -114,24 +119,21 @@ void jasonString::removeAt(size_t index) {
  * returns true if |toRemove| was found and removed otherwise false
  */
 bool jasonString::remove_first(const char toRemove) {
-  if (!data) {
-    return false;
-  }
-  bool found = false;
-  uint32_t index = 0;
   for (int i = 0; i < slen; ++i) {
     if (toRemove == data[i]) {
-      found = true;
-    }
-    if (found) {
-      index = i;
-      break;
+      removeAt(i);
+      return true;
     }
   }
-  if (found) {
-    removeAt(index);
-    --slen;
-    return true;
+  return false;
+}
+
+bool jasonString::remove_last(const char toRemove) {
+  for (int i = (slen - 1); i >= 0; --i) {
+    if (toRemove == data[i]) {
+      removeAt(i);
+      return true;
+    }
   }
   return false;
 }
@@ -141,11 +143,10 @@ bool jasonString::remove_first(const char toRemove) {
  * returns true if |toRemove| was found and removed outherwise false
  */
 bool jasonString::remove_all(const char toRemove) {
-  if (!remove_first(toRemove)) {
+  if (!remove_last(toRemove)) {
     return false;
   }
-  while (remove_first(toRemove)) {
-  }
+  while (remove_last(toRemove)) {}
   return true;
 }
 
@@ -153,6 +154,7 @@ void jasonString::allocate(size_t length) {
   data = new char[length + 1];
   data[0] = '\0';
 }
+
 
 
 /**

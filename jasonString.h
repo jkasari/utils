@@ -18,6 +18,7 @@ class jasonString {
   const char pop_back();
   bool remove_first(const char);
   bool remove_all(const char);
+  bool remove_last(const char);
 
  private:
   void allocate(size_t length);
