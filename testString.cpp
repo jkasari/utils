@@ -6,6 +6,9 @@ using namespace std;
 using namespace nuttiest;
 
 int main() {
+
+
+
   section("constructors") {
     unit_test("empty string has a |length| of (0)") {
       jasonString jstr;
@@ -147,5 +150,42 @@ int main() {
       assert_eq(2, jstr.length());
     }
   }
+  section("contains") {
+    unit_test("null jstr does not contain anything") {
+      jasonString jstr;
+      assert_eq(false, jstr.contains(nullptr));
+      assert_eq(false, jstr.contains(""))
+      assert_eq(false, jstr.contains("A"))
+    }
+    unit_test("\"\" contains") {
+      jasonString jstr("");
+      assert_eq(false, jstr.contains(nullptr));
+      assert_eq(true, jstr.contains(""));
+      assert_eq(false, jstr.contains("A"));
+    }
+    unit_test("\"A\" contains") {
+      jasonString jstr("A");
+      assert_eq(false, jstr.contains(nullptr));
+      assert_eq(true, jstr.contains(""));
+      assert_eq(true, jstr.contains("A"));
+      assert_eq(false, jstr.contains("B"));
+      assert_eq(false, jstr.contains("AA"));
+      assert_eq(false, jstr.contains("ABBBA"));
+    }
+    unit_test("\"ACATANDADOG\" contains") {
+      jasonString jstr("ACATANDADOG");
+      assert_eq(true, jstr.contains(""));
+      assert_eq(false, jstr.contains("B"));
+      assert_eq(true, jstr.contains("A"));
+      assert_eq(true, jstr.contains("C"));
+      assert_eq(true, jstr.contains("CAT"));
+      assert_eq(true, jstr.contains("DOG"));
+      assert_eq(true, jstr.contains("AND"));
+      assert_eq(false, jstr.contains("ANB"));
+      assert_eq(false, jstr.contains("ACATANDADOC"));
+    }
+  }
   summary();
 }
+
+
