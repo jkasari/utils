@@ -20,6 +20,7 @@ class jasonString {
   bool remove_all(const char);
   bool remove_last(const char);
   bool contains(const char*);
+  void reverse();
 
  private:
   void allocate(size_t length);

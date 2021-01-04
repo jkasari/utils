@@ -185,6 +185,43 @@ int main() {
       assert_eq(false, jstr.contains("ACATANDADOC"));
     }
   }
+  section("reverse") {
+    unit_test("\"\" reversed is \"\"") {
+      jasonString jstr = "";
+      jstr.reverse();
+      assert_eq("", jstr);
+    }
+    unit_test("\"A\" reversed is \"A\"") {
+      jasonString jstr = "A";
+      jstr.reverse();
+      assert_eq("A", jstr);
+    }
+    unit_test("\"BAB\" reversed is \"BAB\"") {
+      jasonString jstr = "BAB";
+      jstr.reverse();
+      assert_eq("BAB", jstr);
+    }
+    unit_test("\"BA\" reversed is \"AB\"") {
+      jasonString jstr = "BA";
+      jstr.reverse();
+      assert_eq("AB", jstr);
+    }
+    unit_test("\"BAA\" reversed is \"AAB\"") {
+      jasonString jstr = "BAA";
+      jstr.reverse();
+      assert_eq("AAB", jstr);
+    }
+    unit_test("\"BURGER\" reversed is \"REGRUB\"") {
+      jasonString jstr = "BURGER";
+      jstr.reverse();
+      assert_eq("REGRUB", jstr);
+    }
+    unit_test("\"BURGER1\" reversed is \"1REGRUB\"") {
+      jasonString jstr = "BURGER1";
+      jstr.reverse();
+      assert_eq("1REGRUB", jstr);
+    }
+  }
   summary();
 }
 

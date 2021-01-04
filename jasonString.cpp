@@ -187,6 +187,16 @@ bool jasonString::contains(const char* str) {
 
 
 /**
- * add a bool string search function |contains|
- * add |reverse_function|
+ * takes a jasonString and reverses it
  */
+
+void jasonString::reverse(void) {
+  if(slen < 2) {
+    data = data;
+  }
+  for(int i = 0, x = (slen - 1); i < x; ++i, --x) {
+     int tempData = data[i];
+     data[i] = data[x];
+     data[x] = tempData;
+  }
+}
