@@ -173,6 +173,7 @@ bool jasonString::contains(const char* str) {
       for(int x = 0; x < strlen(str); ++x) {
         if(data[i + x] != str[x]) {
           break;
+          i = i + x;
         }
         if(x == (strlen(str) - 1) && data[i + x] == str[x]) {
           return true;
