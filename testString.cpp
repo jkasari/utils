@@ -194,6 +194,11 @@ int main() {
     }
   }
   section("reverse") {
+    unit_test("null string doesn't crash :D") {
+      jasonString jstr = nullptr;
+      jstr.reverse();
+      pass_test();
+    }
     unit_test("\"\" reversed is \"\"") {
       jasonString jstr = "";
       jstr.reverse();

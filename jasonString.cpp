@@ -191,13 +191,11 @@ bool jasonString::contains(const char* str) {
  * takes a jasonString and reverses it
  */
 
-void jasonString::reverse(void) {
-  if(slen < 2) {
-    data = data;
+void jasonString::reverse() {
+  if(!data) {
+    return;
   }
-  for(int i = 0, x = (slen - 1); i < x; ++i, --x) {
-     int tempData = data[i];
-     data[i] = data[x];
-     data[x] = tempData;
+  for(int i = 0, j = (slen - 1); i < j; ++i, --j) {
+    std::swap(data[i], data[j]);
   }
 }
