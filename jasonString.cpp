@@ -162,24 +162,25 @@ void jasonString::allocate(size_t length) {
 }
 
 bool jasonString::contains(const char* str) {
-  if(!data || !str || strlen(str) > slen) {
+  if(!data || !str) {
     return false;
   }
-  if(str[0] == '\0') {
+
+  int lenOfStr = strlen(str);
+  if(lenOfStr > slen) {
+    return false;
+  }
+
+  if(lenOfStr == 0) {
     return true;
   }
-  for(int i = 0; i <  slen; ++i) {
-    if(data[i] == str[0]) {
-      for(int x = 0; x < strlen(str); ++x) {
-        if(data[i + x] != str[x]) {
-          break;
-        }
-        if(x == (strlen(str) - 1) && data[i + x] == str[x]) {
-          return true;
-        }
-      }
+
+  for(const char* s = data; *s != '\0'; ++s) {
+    if(strncmp(s, str, lenOfStr) == 0) {
+      return true;
     }
   }
+
   return false;
 }
 

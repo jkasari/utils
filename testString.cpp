@@ -184,6 +184,14 @@ int main() {
       assert_eq(false, jstr.contains("ANB"));
       assert_eq(false, jstr.contains("ACATANDADOC"));
     }
+    unit_test("\"WWWCCATWWW\" contains") {
+      jasonString jstr = "WWWCCATWWW";
+      assert_eq(true, jstr.contains("CAT"));
+    }
+    unit_test("\"X-REY\" contains") {
+      jasonString jstr = "X-REY";
+      assert_eq(false, jstr.contains("XREY"));
+    }
   }
   section("reverse") {
     unit_test("\"\" reversed is \"\"") {
