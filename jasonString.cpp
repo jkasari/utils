@@ -1,11 +1,10 @@
 #include "jasonString.h"
 
-
 jasonString& jasonString::operator=(const jasonString& other) {
-  if(!other.data) {
+  if (!other.data) {
     return *this;
   }
-  if(this == &other) {
+  if (this == &other) {
     return *this;
   }
   delete[] data;
@@ -14,9 +13,6 @@ jasonString& jasonString::operator=(const jasonString& other) {
   return *this;
 }
 
-/**
- * allocates a space on the heap for a |jasonString| to occupy
- */
 jasonString::jasonString(const char* str) {
   if (!str) {
     return;
@@ -26,9 +22,14 @@ jasonString::jasonString(const char* str) {
   strcpy(data, str);
 }
 
-/**
- * deletes the |jasonString| off of the heap
- */
+jasonString::jasonString(const jasonString& other) {
+  if (!other.data) {
+    return;
+  }
+  allocate(strlen(other.data));
+  strcpy(data, other.data);
+}
+
 jasonString::~jasonString() {
   if (data) {
     delete[] data;
@@ -36,14 +37,8 @@ jasonString::~jasonString() {
   }
 }
 
-/**
- * returns the length of a |jasonString|
- */
 size_t jasonString::length() const { return slen; }
 
-/**
- * tells |ostream| how to display a |jasonString|
- */
 std::ostream& operator<<(std::ostream& stream, const jasonString& jstr) {
   return stream << jstr.data;
 }
@@ -59,10 +54,6 @@ bool operator==(const jasonString& jstr, const char* str) {
   return str == jstr;
 }
 
-/**
- * finds a spot on the heap with enough room for an old |jasonString| plus one
- * additional char
- */
 void jasonString::push_back(const char c) {
   const char* oldData = data;
   allocate(slen + 1);
@@ -76,10 +67,6 @@ void jasonString::push_back(const char c) {
   slen += 1;
 }
 
-/**
- * finds a spot on the heap with enough room for an old |jasonString| plus a
- * char array
- */
 void jasonString::push_back(const char* str) {
   if (!str) {
     return;
@@ -96,10 +83,6 @@ void jasonString::push_back(const char* str) {
   slen += strLength;
 }
 
-/**
- * TODO(jkasari)
- * write a function discription
- */
 const char jasonString::pop_back() {
   if (slen == 0) {
     return '\0';
@@ -110,10 +93,6 @@ const char jasonString::pop_back() {
   return poppedBackChar;
 }
 
-/**
- * helper function that shifts all the characters in a jasonString over one from
- * a specific index
- */
 void jasonString::removeAt(size_t index) {
   if (!data) {
     return;
@@ -127,10 +106,6 @@ void jasonString::removeAt(size_t index) {
   --slen;
 }
 
-/**
- * removes the first instance of |toRemove| out of a jasonString
- * returns true if |toRemove| was found and removed otherwise false
- */
 bool jasonString::remove_first(const char toRemove) {
   for (int i = 0; i < slen; ++i) {
     if (toRemove == data[i]) {
@@ -141,10 +116,6 @@ bool jasonString::remove_first(const char toRemove) {
   return false;
 }
 
-/**
- * TODO(jkasari)
- * write function discription
- */
 bool jasonString::remove_last(const char toRemove) {
   for (int i = (slen - 1); i >= 0; --i) {
     if (toRemove == data[i]) {
@@ -155,42 +126,36 @@ bool jasonString::remove_last(const char toRemove) {
   return false;
 }
 
-/**
- * removes all instances of |toRemove| out of a jasonString
- * returns true if |toRemove| was found and removed outherwise false
- */
 bool jasonString::remove_all(const char toRemove) {
   if (!remove_last(toRemove)) {
     return false;
   }
-  while (remove_last(toRemove)) {}
+  while (remove_last(toRemove)) {
+  }
   return true;
 }
 
-/**
- * allocates a new spot on the heap for a jasonString
- */
 void jasonString::allocate(size_t length) {
   data = new char[length + 1];
   data[0] = '\0';
 }
 
 bool jasonString::contains(const char* str) {
-  if(!data || !str) {
+  if (!data || !str) {
     return false;
   }
 
   int lenOfStr = strlen(str);
-  if(lenOfStr > slen) {
+  if (lenOfStr > slen) {
     return false;
   }
 
-  if(lenOfStr == 0) {
+  if (lenOfStr == 0) {
     return true;
   }
 
-  for(const char* s = data; *s != '\0'; ++s) {
-    if(strncmp(s, str, lenOfStr) == 0) {
+  for (const char* s = data; *s != '\0'; ++s) {
+    if (strncmp(s, str, lenOfStr) == 0) {
       return true;
     }
   }
@@ -198,18 +163,11 @@ bool jasonString::contains(const char* str) {
   return false;
 }
 
-
-
-
-/**
- * takes a jasonString and reverses it
- */
-
 void jasonString::reverse() {
-  if(!data) {
+  if (!data) {
     return;
   }
-  for(int i = 0, j = (slen - 1); i < j; ++i, --j) {
+  for (int i = 0, j = (slen - 1); i < j; ++i, --j) {
     std::swap(data[i], data[j]);
   }
 }
