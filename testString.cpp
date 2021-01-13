@@ -6,8 +6,57 @@ using namespace std;
 using namespace nuttiest;
 
 int main() {
+  section("operator=") {
+    unit_test("transfer nothing between jasonStrings") {
+      jasonString jstr("");
+      jasonString jstr2("");
+      jstr = jstr2;
+      assert_eq(jstr, "");
+    }
+    unit_test("transfer data between jasonStrings") {
+      jasonString jstr("B");
+      jasonString jstr2("BLACKMAGIC");
+      jstr = jstr2;
+      assert_eq(jstr, "BLACKMAGIC");
+    }
+    unit_test("jasonString equals empty jasonString") {
+      jasonString jstr("BOO");
+      jasonString jstr2("");
+      jstr = jstr2;
+      assert_eq(jstr, "");
+    }
+    unit_test("jasonString equals empty jasonString") {
+      jasonString jstr("BOO");
+      jasonString jstr2;
+      jstr = jstr2;
+      assert_eq(jstr, "BOO");
+    }
+    unit_test("empty jasonString equals new data") {
+      jasonString jstr;
+      jasonString jstr2("BOO");
+      jstr = jstr2;
+      assert_eq(jstr, "BOO");
+    }
+    unit_test("jasonString equals jasonString") {
+      jasonString jstr("BOO");
+      jasonString jstr2("BOO");
+      jstr = jstr2;
+      assert_eq(jstr, "BOO");
+    }
+  }
 
-
+  section("Creating from anther jasonString") {
+    unit_test("create a jasonString from an empty jasonString") {
+      jasonString jstr("");
+      jasonString jstr2(jstr);
+      assert_eq(jstr2, "");
+    }
+    unit_test("create a jasonString from an empty jasonString") {
+      jasonString jstr("BOO");
+      jasonString jstr2(jstr);
+      assert_eq(jstr2, "BOO");
+    }
+  }
 
   section("constructors") {
     unit_test("empty string has a |length| of (0)") {
@@ -154,8 +203,7 @@ int main() {
     unit_test("null jstr does not contain anything") {
       jasonString jstr;
       assert_eq(false, jstr.contains(nullptr));
-      assert_eq(false, jstr.contains(""))
-      assert_eq(false, jstr.contains("A"))
+      assert_eq(false, jstr.contains("")) assert_eq(false, jstr.contains("A"))
     }
     unit_test("\"\" contains") {
       jasonString jstr("");
@@ -235,7 +283,6 @@ int main() {
       assert_eq("1REGRUB", jstr);
     }
   }
+
   summary();
 }
-
-
