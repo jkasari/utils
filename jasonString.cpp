@@ -1,5 +1,19 @@
 #include "jasonString.h"
 
+
+jasonString& jasonString::operator=(const jasonString& other) {
+  if(!other.data) {
+    return *this;
+  }
+  if(this == &other) {
+    return *this;
+  }
+  delete[] data;
+  allocate(strlen(other.data));
+  strcpy(data, other.data);
+  return *this;
+}
+
 /**
  * allocates a space on the heap for a |jasonString| to occupy
  */

@@ -9,6 +9,7 @@ class jasonString {
   friend bool operator==(const jasonString& jstr, const char* str);
 
  public:
+  jasonString& operator=(const jasonString&);
   jasonString() {}
   jasonString(const char*);
   ~jasonString();
