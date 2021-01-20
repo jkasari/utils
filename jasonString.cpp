@@ -1,15 +1,20 @@
 #include "jasonString.h"
+#include <algorithm>
 
 jasonString& jasonString::operator=(const jasonString& other) {
-  if (!other.data) {
-    return *this;
-  }
   if (this == &other) {
     return *this;
   }
-  delete[] data;
-  allocate(strlen(other.data));
-  strcpy(data, other.data);
+  if(data) {
+    delete[] data;
+    data = nullptr;
+  }
+  if(other.data) {
+    allocate(other.capacity);
+    strcpy(data, other.data);
+  }
+  slen = other.slen;
+  capacity = other.capacity;
   return *this;
 }
 
@@ -18,7 +23,8 @@ jasonString::jasonString(const char* str) {
     return;
   }
   slen = strlen(str);
-  allocate(slen);
+  capacity = std::max(size_t(10), slen * 2);
+  allocate(capacity);
   strcpy(data, str);
 }
 
@@ -26,7 +32,9 @@ jasonString::jasonString(const jasonString& other) {
   if (!other.data) {
     return;
   }
-  allocate(strlen(other.data));
+  capacity = other.capacity;
+  slen = other.slen;
+  allocate(capacity);
   strcpy(data, other.data);
 }
 
@@ -55,12 +63,13 @@ bool operator==(const jasonString& jstr, const char* str) {
 }
 
 void jasonString::push_back(const char c) {
-  const char* oldData = data;
-  allocate(slen + 1);
-  if (oldData) {
-    strcpy(data, oldData);
-    delete[] oldData;
-    oldData = nullptr;
+  if(slen + 1 >= capacity) {
+    char* oldData = data;
+    capacity *= 2;
+    allocate(capacity);
+    if(oldData) {
+      strcpy(data, oldData);
+    }
   }
   data[slen] = c;
   data[slen + 1] = '\0';
@@ -71,16 +80,23 @@ void jasonString::push_back(const char* str) {
   if (!str) {
     return;
   }
-  size_t strLength = strlen(str);
-  const char* oldData = data;
-  allocate(slen + strLength);
-  if (oldData) {
-    strcpy(data, oldData);
-    delete[] oldData;
-    oldData = nullptr;
+  slen += strlen(str);
+  if(slen > capacity) {
+    if(capacity == 0) {
+      capacity = 10;
+    }
+    while(capacity < slen) {
+      capacity *= 2;
+    }
+    const char* oldData = data;
+    allocate(capacity);
+    if (oldData) {
+      strcpy(data, oldData);
+      delete[] oldData;
+      oldData = nullptr;
+    }
   }
   strcat(data, str);
-  slen += strLength;
 }
 
 const char jasonString::pop_back() {
@@ -135,8 +151,8 @@ bool jasonString::remove_all(const char toRemove) {
   return true;
 }
 
-void jasonString::allocate(size_t length) {
-  data = new char[length + 1];
+void jasonString::allocate(size_t capacity) {
+  data = new char[capacity + 1];
   data[0] = '\0';
 }
 
