@@ -47,7 +47,7 @@ class jasonString {
    */
   void push_back(const char*);
   /**
-   * DELETE DELETE DELETE DELETE????????
+   * Removes the last char in a jasonString.
    */
   const char pop_back();
   /**
@@ -82,6 +82,7 @@ class jasonString {
    */
   void removeAt(size_t index);
   char* data = nullptr;
+  size_t capacity = 0;
   size_t slen = 0;
 };
 

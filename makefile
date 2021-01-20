@@ -9,5 +9,5 @@ jasonString:
 
 clean:
 	rm -rf testString *.o
-	
+
 .PHONY: test testString jasonString clean

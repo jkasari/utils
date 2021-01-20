@@ -12,36 +12,41 @@ int main() {
       jasonString jstr2("");
       jstr = jstr2;
       assert_eq(jstr, "");
+      assert_eq(jstr.length(), jstr2.length());
     }
     unit_test("transfer data between jasonStrings") {
       jasonString jstr("B");
       jasonString jstr2("BLACKMAGIC");
       jstr = jstr2;
       assert_eq(jstr, "BLACKMAGIC");
+      assert_eq(jstr.length(), jstr2.length());
     }
     unit_test("jasonString equals empty jasonString") {
       jasonString jstr("BOO");
       jasonString jstr2("");
       jstr = jstr2;
       assert_eq(jstr, "");
+      assert_eq(jstr.length(), jstr2.length());
     }
     unit_test("jasonString equals empty jasonString") {
       jasonString jstr("BOO");
       jasonString jstr2;
       jstr = jstr2;
-      assert_eq(jstr, "BOO");
+      assert_eq(jstr.length(), jstr2.length());
     }
     unit_test("empty jasonString equals new data") {
       jasonString jstr;
       jasonString jstr2("BOO");
       jstr = jstr2;
       assert_eq(jstr, "BOO");
+      assert_eq(jstr.length(), jstr2.length());
     }
     unit_test("jasonString equals jasonString") {
       jasonString jstr("BOO");
       jasonString jstr2("BOO");
       jstr = jstr2;
       assert_eq(jstr, "BOO");
+      assert_eq(jstr.length(), jstr2.length());
     }
   }
 
@@ -50,11 +55,13 @@ int main() {
       jasonString jstr("");
       jasonString jstr2(jstr);
       assert_eq(jstr2, "");
+      assert_eq(jstr.length(), jstr2.length());
     }
     unit_test("create a jasonString from an empty jasonString") {
       jasonString jstr("BOO");
       jasonString jstr2(jstr);
       assert_eq(jstr2, "BOO");
+      assert_eq(jstr.length(), jstr2.length());
     }
   }
 
